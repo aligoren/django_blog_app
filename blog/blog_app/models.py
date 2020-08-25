@@ -31,3 +31,16 @@ class Post(models.Model):
             self.slug = slugify(unidecode.unidecode(self.title))
         return super().save(*args, **kwargs)
 
+
+class Page(models.Model):
+    title = models.CharField(max_length=200, null=True)
+    content = models.TextField(null=True)
+    slug = models.SlugField(max_length=100, null=True, unique=True)
+
+    def __str__(self):
+        return self.title
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(unidecode.unidecode(self.title))
+        return super().save(*args, **kwargs)
