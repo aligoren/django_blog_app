@@ -1,0 +1,12 @@
+{% for post in posts %}
+    <h2>
+        <a href="{{post.slug}}">{{ post.title }}</a>
+    </h2>
+    <article>{{ post.content }}</article>
+
+    {% for category in post.category.all %}
+        <span>
+            <a href="/category/{{category.slug}}">{{ category }}</a>{%if not forloop.last%},{%endif%}
+        </span>
+    {% endfor %}
+{% endfor %}
