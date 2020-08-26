@@ -6,7 +6,7 @@ from .models import Post, Setting
 
 def index(request):
 
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-id')
     settings = Setting.objects.first()
 
     context = { 'posts': posts, 'settings': settings }
