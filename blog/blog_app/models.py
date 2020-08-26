@@ -70,4 +70,13 @@ class Setting(models.Model):
 
     comments_needs_approval = models.BooleanField(default=False)
 
-    post_permalink = models.CharField(max_length=100, default="%postname%")
+    post_permalink = models.CharField(max_length=100, blank=True, default="%postname%")
+
+    def __str__(self):
+        return "Settings"
+
+    def save(self, *args, **kwargs):
+        if Setting.objects.exists():
+            pass
+        else:
+            super().save(*args, **kwargs)

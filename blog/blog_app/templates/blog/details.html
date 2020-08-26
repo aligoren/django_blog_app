@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }}</title>
+    <meta name="description" content="{{ settings.description }}">
+</head>
+<body>
+    <h2>
+        <a href="{{post.slug}}">{{ post.title }}</a>
+    </h2>
+    <article>{{ post.content }}</article>
+
+    {% for category in post.category.all %}
+        <span>
+            <a href="/category/{{category.slug}}">{{ category }}</a>{%if not forloop.last%},{%endif%}
+        </span>
+    {% endfor %}
+</body>
+</html>
