@@ -1,0 +1,17 @@
+{% extends "blog/base.html" %}
+{% load markdown_extras %}
+
+{% block content %}
+
+<section class="section">
+    <div class="columns">
+        <div class="column is-12 is-offset-2">
+            <div class="content is-medium">
+                <h2 class="title">The page you looking for, couldn't find!</h2>
+                <p>{{ message|markdown|safe }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

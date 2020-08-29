@@ -16,7 +16,8 @@
                 <div class="content is-medium">
                     <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
                     <h4 class="subtitle is-4">{{ post.created_at }}</h4>
-                    <p>{{ post.content|markdown|safe|truncatewords:50 }}</p>
+                    <p>{{ post.content|markdown|safe|truncatewords:50|linebreaks }}</p>
+                    <a href="{{post.slug}}">read more</a>
                 </div>
                 {% for category in post.category.all %}
                 <span class="tag is-primary is-light">

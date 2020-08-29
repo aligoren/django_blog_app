@@ -39,15 +39,11 @@
                 </span>
                 </div>
             </div>
-            <a class="navbar-item is-active is-size-5 has-text-weight-semibold">
-                Home
+            {% for page in pages %}
+            <a href="/page/{{ page.slug }}" class="navbar-item is-active is-size-5 has-text-weight-semibold">
+                {{ page.title }}
             </a>
-            <a class="navbar-item is-size-5 has-text-weight-semibold">
-                Examples
-            </a>
-            <a class="navbar-item is-size-5 has-text-weight-semibold">
-                Features
-            </a>
+            {% endfor %}
             </div>
         </div>
         </div>

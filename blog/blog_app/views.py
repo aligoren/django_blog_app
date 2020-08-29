@@ -31,3 +31,12 @@ def post_defails(request, post_slug):
     context = { 'post': post, 'settings': settings }
 
     return render(request, 'blog/details.html', context)
+
+
+def handler404(request, exception):
+    
+    settings = { 'title': '404 Not Found' }
+
+    context = { 'message': 'You may want to visit [Home](/)', 'details': str(exception), 'settings': settings  }
+    
+    return render(request, 'errors/404.html', context, status = 404)
