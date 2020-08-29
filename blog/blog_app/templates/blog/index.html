@@ -1,4 +1,5 @@
 {% extends "blog/base.html" %}
+{% load markdown_extras %}
 
 {% block content %}
     {% for post in posts %}
@@ -13,9 +14,9 @@
         <div class="columns">
             <div class="column is-8 is-offset-2">
                 <div class="content is-medium">
-                    <h2 class="subtitle is-4">December 25, 2018</h2>
                     <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
-                    <p>{{ post.content|safe|truncatewords:50 }}</p>
+                    <h4 class="subtitle is-4">{{ post.created_at }}</h4>
+                    <p>{{ post.content|markdown|safe|truncatewords:50 }}</p>
                 </div>
                 {% for category in post.category.all %}
                 <span class="tag is-primary is-light">
@@ -26,7 +27,7 @@
         </div>
     </section>
     {% endfor %}
-
+    {% if posts.paginator.num_pages > 1 %}
     <nav class="pagination" role="navigation" aria-label="pagination"></nav>
         <ul class="pagination-list">
             {% if posts.has_previous %}
@@ -48,4 +49,5 @@
             {% endif %}
         </ul>
     </nav>
+    {% endif %}
 {% endblock %}
