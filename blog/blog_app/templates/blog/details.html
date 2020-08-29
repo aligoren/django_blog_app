@@ -4,11 +4,20 @@
 {% block content %}
 
 <section class="section">
+    {%if post.cover_image %}
+    <div class="columns">
+        <div class="column is-4 is-offset-2">
+            <figure class="image is-16by9">
+                <img src="{{ post.cover_image.url }}" alt="">
+            </figure>
+        </div>
+    </div>
+    {% endif %}
     <div class="columns">
         <div class="column is-8 is-offset-2">
             <div class="content is-medium">
-                <h2 class="subtitle is-4">December 25, 2018</h2>
                 <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
+                <h5 class="subtitle is-7">{{ post.created_at }}</h5>
                 <p>{{ post.content|markdown|safe }}</p>
             </div>
             {% for category in post.category.all %}

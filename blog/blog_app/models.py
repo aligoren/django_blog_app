@@ -23,6 +23,7 @@ class Post(models.Model):
     active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
+    cover_image = models.ImageField(blank=True, upload_to = 'uploads/')
 
     # when global comment setting is on, this field will be available
     comments_enabled = models.BooleanField(default=True)

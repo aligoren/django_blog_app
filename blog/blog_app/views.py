@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-from .models import Post, Setting
+from .models import Post, Page, Setting
 
 def index(request):
 
@@ -23,7 +23,7 @@ def index(request):
 
     return render(request, 'blog/index.html', context)
 
-def post_defails(request, post_slug):
+def post_details(request, post_slug):
 
     post = Post.objects.filter(slug=post_slug).first()
     settings = { 'title': post.title }
@@ -31,6 +31,15 @@ def post_defails(request, post_slug):
     context = { 'post': post, 'settings': settings }
 
     return render(request, 'blog/details.html', context)
+
+def page_details(request, page_slug):
+
+    page = Page.objects.filter(slug=page_slug).first()
+    settings = { 'title': page.title }
+
+    context = { 'page': page, 'settings': settings }
+
+    return render(request, 'blog/page_details.html', context)
 
 
 def handler404(request, exception):
