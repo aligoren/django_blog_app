@@ -16,6 +16,19 @@ class Category(models.Model):
             self.slug = slugify(unidecode.unidecode(self.category_name))
         return super().save(*args, **kwargs)
 
+class Comment(models.Model):
+    name = models.CharField(max_length=50)
+    email = models.EmailField(max_length=100)
+    url = models.URLField(max_length=100, blank=True)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
+    post = models.ForeignKey('blog_app.Post', on_delete=models.CASCADE, related_name='comments')
+
+    class Meta:
+        ordering = ['-id']
+
 class Post(models.Model):
     title = models.CharField(max_length=200, null=True)
     content = models.TextField(null=True)

@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from .models import Post, Page, Setting
+from .forms import CommentForm
 
 def index(request):
 
@@ -47,8 +48,9 @@ def post_details(request, post_slug):
 
     post = Post.objects.filter(slug=post_slug).first()
     settings = { 'title': post.title }
+    form = CommentForm()
 
-    context = { 'post': post, 'settings': settings }
+    context = { 'post': post, 'settings': settings, 'form': form }
 
     return render(request, 'blog/details.html', context)
 
@@ -61,6 +63,27 @@ def page_details(request, page_slug):
 
     return render(request, 'blog/page_details.html', context)
 
+
+def add_comment(request, pk):
+
+    post = Post.objects.filter(pk=pk).first()
+    settings = { 'title': post.title }
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.save()
+            
+            return redirect('post_details', post_slug=post.slug)
+    else:
+        form = CommentForm()
+
+    context = { 'post': post, 'settings': settings, 'form': form }
+
+    return render(request, 'blog/details.html', context)
 
 def handler404(request, exception):
     

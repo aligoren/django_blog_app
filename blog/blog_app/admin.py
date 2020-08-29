@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Post, Page, Category, Setting
+from .models import Post, Page, Category, Setting, Comment
 
 
 class PostAdmin(admin.ModelAdmin):
@@ -17,3 +17,4 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Setting)
+admin.site.register(Comment)

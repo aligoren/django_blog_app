@@ -16,7 +16,7 @@
     <div class="columns">
         <div class="column is-8 is-offset-2">
             <div class="content is-medium">
-                <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
+                <h2 class="title"><a href="/{{post.slug}}">{{ post.title }}</a></h2>
                 <h5 class="subtitle is-7">{{ post.created_at }}</h5>
                 <p>{{ post.content|markdown|safe }}</p>
             </div>
@@ -25,6 +25,82 @@
                 <a href="/category/{{category.slug}}">{{ category }}</a>
             </span>
             {% endfor %}
+
+            {% if form.errors %}
+            <div class="column is-12">
+                <p class="mt-5 mb-5"><strong>The operation could not be performed because one or more error(s) occurred. Please resubmit the form after making the following changes</strong></p>
+                
+                    {% for field in form %}
+                    {% if field.errors %}
+                    <div class="notification is-danger is-light">
+                        {{ field }}
+                        {{ field.errors|striptags }}
+                        
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+            </div>
+            {% endif %}
+            
+            <form action="{% url 'comment' pk=post.pk %}" method="POST">
+                {% csrf_token %}
+                
+                <div class="column is-8">
+                    <div class="field">
+                        <label for="{{ form.name.id_for_label }}" class="label">Name</label>
+                        <div class="control">
+                            {{ form.name }}
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-8">
+                    <div class="field">
+                        <label for="{{ form.email.id_for_label }}" class="label">E-Mail</label>
+                        <div class="control">
+                            {{ form.email }}
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-8">
+                    <div class="field">
+                        <label for="{{ form.url.id_for_label }}" class="label">Url</label>
+                        <div class="control">
+                            {{ form.url }}
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-10">
+                    <div class="field">
+                        <label for="{{ form.comment.id_for_label }}" class="label">Message</label>
+                        <div class="control">
+                            {{ form.comment }}
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-10">
+                    <div class="field">
+                        <div class="control">
+                            <input class="button is-dark is-fullwidth" type="submit" value="Add Comment">
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            {% if post.comments.all %}
+            <div class="mt-3 box">
+                <h4 class="title">Comments</h4>
+                <div class="media-content">
+                    {% for comment in post.comments.all %}
+                    <div class="content">
+                        <strong><a href="{{ comment.url }}" target="_blank" rel="nofollow">{{ comment.name }}</a></strong>
+                        <span class="has-text-right is-right is-pulled-right">{{ comment.created_at }}</span>
+                        <p><blockquote>{{ comment.comment }}</blockquote></p>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+            
         </div>
     </div>
 </section>
