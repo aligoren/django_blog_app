@@ -2,28 +2,50 @@
 
 {% block content %}
     {% for post in posts %}
-        <!-- <div class="columns">
+    <!-- <div class="columns">
+        <div class="column is-8 is-offset-2">
+            <figure class="image is-16by9">
+                <img src="https://bulmatemplates.github.io/bulma-templates/images/first-post.png" alt="">
+            </figure>
+        </div>
+    </div> -->
+    <section class="section">
+        <div class="columns">
             <div class="column is-8 is-offset-2">
-                <figure class="image is-16by9">
-                    <img src="https://bulmatemplates.github.io/bulma-templates/images/first-post.png" alt="">
-                </figure>
-            </div>
-        </div> -->
-        <section class="section">
-            <div class="columns">
-                <div class="column is-8 is-offset-2">
-                    <div class="content is-medium">
-                        <h2 class="subtitle is-4">December 25, 2018</h2>
-                        <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
-                        <p>{{ post.content|safe|truncatewords:50 }}</p>
-                    </div>
-                    {% for category in post.category.all %}
-                    <span class="tag is-primary is-light">
-                        <a href="/category/{{category.slug}}">{{ category }}</a>
-                    </span>
-                    {% endfor %}
+                <div class="content is-medium">
+                    <h2 class="subtitle is-4">December 25, 2018</h2>
+                    <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
+                    <p>{{ post.content|safe|truncatewords:50 }}</p>
                 </div>
+                {% for category in post.category.all %}
+                <span class="tag is-primary is-light">
+                    <a href="/category/{{category.slug}}">{{ category }}</a>
+                </span>
+                {% endfor %}
             </div>
-        </section>
+        </div>
+    </section>
     {% endfor %}
+
+    <nav class="pagination" role="navigation" aria-label="pagination"></nav>
+        <ul class="pagination-list">
+            {% if posts.has_previous %}
+            <li><a class="pagination-previous" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li><span class="is-unclickable pagination-previous">&laquo;</span></li>
+            {% endif %}
+            {% for i in posts.paginator.page_range %}
+                {% if posts.number == i %}
+                <li><span class="pagination-link is-current">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                <li><a class="pagination-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+            <li><a class="pagination-next" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li><span class="is-unclickable pagination-next">&raquo;</span></li>
+            {% endif %}
+        </ul>
+    </nav>
 {% endblock %}

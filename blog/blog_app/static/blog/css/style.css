@@ -18,3 +18,7 @@ nav.navbar {
 .formatter-code {
     padding: 0 !important;
 }
+
+.is-unclickable {
+    pointer-events: none;
+}
