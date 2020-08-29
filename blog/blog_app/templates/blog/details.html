@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.title }}</title>
-    <meta name="description" content="{{ settings.description }}">
-</head>
-<body>
-    <h2>
-        <a href="{{post.slug}}">{{ post.title }}</a>
-    </h2>
-    <article>{{ post.content }}</article>
+{% extends "blog/base.html" %}
+{% load markdown_extras %}
 
-    {% for category in post.category.all %}
-        <span>
-            <a href="/category/{{category.slug}}">{{ category }}</a>{%if not forloop.last%},{%endif%}
-        </span>
-    {% endfor %}
-</body>
-</html>
+{% block content %}
+
+<section class="section">
+    <div class="columns">
+        <div class="column is-8 is-offset-2">
+            <div class="content is-medium">
+                <h2 class="subtitle is-4">December 25, 2018</h2>
+                <h2 class="title"><a href="{{post.slug}}">{{ post.title }}</a></h2>
+                <p>{{ post.content|markdown|safe }}</p>
+            </div>
+            {% for category in post.category.all %}
+            <span class="tag is-primary is-light">
+                <a href="/category/{{category.slug}}">{{ category }}</a>
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

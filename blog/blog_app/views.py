@@ -16,7 +16,8 @@ def index(request):
 def post_defails(request, post_slug):
 
     post = Post.objects.filter(slug=post_slug).first()
+    settings = { 'title': post.title }
 
-    context = { 'post': post }
+    context = { 'post': post, 'settings': settings }
 
     return render(request, 'blog/details.html', context)
