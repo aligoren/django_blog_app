@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 from .models import Post, Page, Setting
 from .forms import CommentForm, LoginForm
@@ -89,6 +90,10 @@ def add_comment(request, pk):
 
 
 def login_request(request):
+    
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+    
     if request.method == 'POST':
         form = LoginForm(request, request.POST)
         if form.is_valid():
@@ -97,7 +102,7 @@ def login_request(request):
             user = authenticate(request=request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('/dashboard')
+                return redirect('dashboard')
             else:
                 messages.error(request, "Username or password not correct")
     else:
