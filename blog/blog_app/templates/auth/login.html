@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section">
+    <div class="columns is-centered">
+        <form method="post">
+            {% csrf_token %}
+    
+            <div class="column is-12">
+                <div class="field">
+                    <label for="{{ form.username.id_for_label }}" class="label">Username</label>
+                    <div class="control">
+                        {{ form.username }}
+                    </div>
+                </div>
+            </div>
+    
+            <div class="column is-12">
+                <div class="field">
+                    <label for="{{ form.password.id_for_label }}" class="label">Password</label>
+                    <div class="control">
+                        {{ form.password }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="column is-12">
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-dark is-fullwidth" type="submit">Login</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    {% if form.non_field_errors %}
+    <div class="columns is-centered">
+        <div class="column is-8">
+            
+                {% for error in form.non_field_errors %}
+                <div class="notification is-danger is-light has-text-centered">
+                    {{ error|striptags }}
+                </div>
+                {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</section>
+
+
+{% endblock %}

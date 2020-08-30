@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 
 from .models import Post, Page, Setting
-from .forms import CommentForm
+from .forms import CommentForm, LoginForm
 
 def index(request):
 
@@ -84,6 +86,34 @@ def add_comment(request, pk):
     context = { 'post': post, 'settings': settings, 'form': form }
 
     return render(request, 'blog/details.html', context)
+
+
+def login_request(request):
+    if request.method == 'POST':
+        form = LoginForm(request, request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request=request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('/dashboard')
+            else:
+                messages.error(request, "Username or password not correct")
+    else:
+        form = LoginForm()
+
+    settings = { 'title': 'Login' }
+    context = { 'form': form, 'settings': settings }
+
+    return render(request, 'auth/login.html', context)
+
+
+def logout_request(request):
+    logout(request)
+    messages.success(request, "Logged out successfully!")
+    return redirect("login")
+
 
 def handler404(request, exception):
     
