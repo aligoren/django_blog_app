@@ -1,0 +1,53 @@
+<div class="column is-3">
+    <div class="card mb-3">
+        <header class="card-header">
+            <p class="card-header-title">At a Glance</p>
+        </header>
+        <div class="card-content">
+            <div class="columns is-multiline">
+                <div class="column is-6"><a href="">12 Posts</a></div>
+                <div class="column is-6"><a href="">1 Page</a></div>
+                <div class="column is-6"><a href="">23 Comments</a></div>
+                <div class="column is-12">
+                    <p>Running on Python 3.6 and Django 3.1</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">Recent Posts</p>
+        </header>
+        <div class="card-content">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                    {% for i in "x"|rjust:"5"|make_list %}
+                    <p class="mb-2">
+                        <span>Aug 9th 12:13</span>
+                        <a class="is-pulled-right" href="{% url 'dashboard' %}">Test Post</a>
+                    </p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">Recent Comments</p>
+        </header>
+        <div class="card-content">
+            <div class="columns is-multiline">
+                <div class="column is-12">
+                    {% for i in "x"|rjust:"20"|make_list %}
+                    <div class="mb-4">
+                        <span>Aug 9th 12:13</span>
+                        <a class="is-pulled-right" href="{% url 'dashboard' %}">Test Post</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

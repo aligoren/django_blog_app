@@ -20,9 +20,7 @@
     <nav class="navbar">
         <div class="container">
         <div class="navbar-brand">
-            <a class="navbar-item" href="../">
-            <img src="../images/bulma.png" alt="Logo">
-            </a>
+            <h1 class="title mt-3"><a class="navbar-item" href="{% url 'index' %}">Ali Blog</a></h1>
             <span class="navbar-burger burger" data-target="navbarMenu">
             <span></span>
             <span></span>
@@ -31,7 +29,7 @@
         </div>
         <div id="navbarMenu" class="navbar-menu">
             <div class="navbar-end">
-            <div class=" navbar-item">
+            <div hidden class=" navbar-item is-hidden">
                 <div class="control has-icons-left">
                 <input class="input is-rounded" type="email" placeholder="Search">
                 <span class="icon is-left">
