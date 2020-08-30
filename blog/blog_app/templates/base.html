@@ -51,7 +51,7 @@
     <!-- END NAV -->
     <section class="hero ">
         <div class="hero-body">
-            <div class="container">
+            <div class="{{ settings.dashboard|default:'container' }}">
                 {% block content %}{% endblock %}
             </div>
         </div>
