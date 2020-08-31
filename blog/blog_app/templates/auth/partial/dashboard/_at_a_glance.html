@@ -5,9 +5,9 @@
         </header>
         <div class="card-content">
             <div class="columns is-multiline">
-                <div class="column is-6"><a href="">12 Posts</a></div>
-                <div class="column is-6"><a href="">1 Page</a></div>
-                <div class="column is-6"><a href="">23 Comments</a></div>
+                <div class="column is-6"><a href="">{{ details.post_count }} Post{{ details.post_count|pluralize }}</a></div>
+                <div class="column is-6"><a href="">{{ details.page_count }} Page{{ details.page_count|pluralize }}</a></div>
+                <div class="column is-6"><a href="">{{ details.comment_count }} Comment{{ details.comment_count|pluralize }}</a></div>
                 <div class="column is-12">
                     <p>Running on Python 3.6 and Django 3.1</p>
                 </div>
@@ -22,11 +22,11 @@
         <div class="card-content">
             <div class="columns is-multiline">
                 <div class="column is-12">
-                    {% for i in "x"|rjust:"5"|make_list %}
-                    <p class="mb-2">
-                        <span>Aug 9th 12:13</span>
-                        <a class="is-pulled-right" href="{% url 'dashboard' %}">Test Post</a>
-                    </p>
+                    {% for post in details.last_posts.all %}
+                    <div class="columns">
+                        <div class="column is-6">{{ post.created_at|date:"M d H:i" }}</div>
+                        <div class="column is-6"><a target="_blank" class="is-pulled-right" href="{% url 'post_details' post.slug %}">{{ post.title }}</a></div>
+                    </div>
                     {% endfor %}
                 </div>
             </div>
@@ -39,10 +39,10 @@
         <div class="card-content">
             <div class="columns is-multiline">
                 <div class="column is-12">
-                    {% for i in "x"|rjust:"20"|make_list %}
-                    <div class="mb-4">
-                        <span>Aug 9th 12:13</span>
-                        <a class="is-pulled-right" href="{% url 'dashboard' %}">Test Post</a>
+                    {% for comment in details.last_comments.all %}
+                    <div class="columns">
+                        <div class="column is-6">{{ comment.name }}</div>
+                        <div class="column is-6"><a target="_blank" class="is-pulled-right" href="{% url 'post_details' comment.post.slug %}">{{ comment.post }}</a></div>
                     </div>
                     {% endfor %}
                 </div>

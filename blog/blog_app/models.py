@@ -21,6 +21,7 @@ class Comment(models.Model):
     email = models.EmailField(max_length=100)
     url = models.URLField(max_length=100, blank=True)
     comment = models.TextField()
+    active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now=True)
     updated_at = models.DateTimeField(auto_now=True)
     parent = models.ForeignKey('self', null=True, blank=True, related_name='replies', on_delete=models.CASCADE)
