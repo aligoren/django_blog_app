@@ -6,10 +6,10 @@
         <div class="card-content">
             <div class="content">
                 <ul>
-                    <li>12 posts</li>
-                    <li>1 page</li>
-                    <li>0 drafts</li>
-                    <li>25 total comments</li>
+                    <li>{{ details.post_count }} post{{ details.post_count|pluralize }}</li>
+                    <li>{{ details.page_count }} page{{ details.page_count|pluralize }}</li>
+                    <li>{{ details.draft_post_count }} draft{{ details.draft_post_count|pluralize }}</li>
+                    <li>{{ details.comment_count }} comment{{ details.comment_count|pluralize }}</li>
                     <li>0 comments in queue</li>
                     <li>23 comments approved</li>
                     <li>1 registered users</li>

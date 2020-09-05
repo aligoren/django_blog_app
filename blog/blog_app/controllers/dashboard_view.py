@@ -25,7 +25,8 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             'page_count': pages.count(),
             'comment_count': comments.count(),
             'last_posts': posts.order_by('-id')[:5],
-            'last_comments': comments.order_by('-id')[:10]
+            'last_comments': comments.order_by('-id')[:10],
+            'draft_post_count': posts.filter(active=False).count()
         }
 
         context = { 'settings': self.settings, 'details': details, 'form': form }
