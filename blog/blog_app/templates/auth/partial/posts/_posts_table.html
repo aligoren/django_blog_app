@@ -1,0 +1,61 @@
+<div class="column is-12">
+    <span class="subtitle mr-2">Posts</span>
+    <a class="button is-small" href="/dashboard/new_post">Add New</a>
+</div>
+<div class="column is-12">
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <thead>
+            <tr>
+                <th><label class="checkbox"><input type="checkbox" /></label></th>
+                <th>Title</th>
+                <th>Categories</th>
+                <th class="has-text-centered column-comments"><span class="tag has-background-grey has-text-white">?</span></th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <form action="">
+                {% for post in posts %}
+                <tr>
+                    <td><label class="checkbox"><input type="checkbox" /></label></td>
+                    <td>{{ post.title }}</td>
+                    <td>
+                        {% for category in post.category.all %}
+                        <span class="tag is-primary is-light">
+                            <a href="/category/{{category.slug}}">{{ category }}</a>
+                        </span>
+                        {% endfor %}
+                    </td>
+                    <td class="has-text-centered">
+                        <span class="tag has-background-grey has-text-white">{{ post.comments.count }}</span>
+                    </td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+            </form>
+        </tbody>
+    </table>
+    {% if posts.paginator.num_pages > 1 %}
+    <nav class="pagination is-pulled-right" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+            {% if posts.has_previous %}
+            <li><a class="pagination-previous" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+            <li><span class="is-unclickable pagination-previous">&laquo;</span></li>
+            {% endif %}
+            {% for i in posts.paginator.page_range %}
+                {% if posts.number == i %}
+                <li><span class="pagination-link is-current">{{ i }} <span class="sr-only">(current)</span></span></li>
+                {% else %}
+                <li><a class="pagination-link" href="?page={{ i }}">{{ i }}</a></li>
+                {% endif %}
+            {% endfor %}
+            {% if posts.has_next %}
+            <li><a class="pagination-next" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+            {% else %}
+            <li><span class="is-unclickable pagination-next">&raquo;</span></li>
+            {% endif %}
+        </ul>
+    </nav>
+    {% endif %}
+</div>

@@ -28,3 +28,7 @@ nav.navbar {
     top: 30px;
 }
 
+.column-comments {
+    width: 5.5em;
+    text-align: left;;
+}
