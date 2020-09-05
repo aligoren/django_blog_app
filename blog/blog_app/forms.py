@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 
-from .models import Comment
+from .models import Comment, Post
 
 class CommentForm(forms.ModelForm):
 
@@ -27,3 +27,15 @@ class LoginForm(AuthenticationForm):
 
         model = User
         fields = ("username", "password")
+
+
+class PostForm(forms.ModelForm):
+
+    title = forms.CharField(widget=forms.TextInput(attrs={'class': 'input'}))
+    content = forms.CharField(widget=forms.Textarea(attrs={'class': 'textarea is-fullwidth', 'placeholder': "What's on your mind?", 'rows': '5'}))
+    cover_image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'input'}), required=False)
+
+    class Meta:
+
+        model = Post
+        fields = ("title", "content", "cover_image")

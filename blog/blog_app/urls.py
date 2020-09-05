@@ -14,6 +14,7 @@ urlpatterns = [
     path('login', views.login_request, name='login'),
     path('logout', views.logout_request, name='logout'),
 
+
     # post details like a wildcard
     path('<slug:post_slug>', views.post_details, name='post_details'),
     

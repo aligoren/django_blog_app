@@ -9,7 +9,7 @@ from .forms import CommentForm, LoginForm
 
 def index(request):
 
-    post_list = Post.objects.all().order_by('-id')
+    post_list = Post.objects.filter(active=True).order_by('-id')
     settings = Setting.objects.first()
 
     page = request.GET.get('page', 1)
@@ -54,6 +54,10 @@ def post_details(request, post_slug):
     form = CommentForm()
 
     context = { 'post': post, 'settings': settings, 'form': form }
+
+    if not post.active:
+        
+        return redirect('index')
 
     return render(request, 'blog/details.html', context)
 
