@@ -6,6 +6,9 @@ from django.contrib import messages
 from ..models import Post, Page, Comment
 from ..forms import PostForm
 
+import platform
+import django
+
 class DashboardView(LoginRequiredMixin, TemplateView):
 
     template_name = "auth/dashboard.html"
@@ -26,7 +29,9 @@ class DashboardView(LoginRequiredMixin, TemplateView):
             'comment_count': comments.count(),
             'last_posts': posts.order_by('-id')[:5],
             'last_comments': comments.order_by('-id')[:10],
-            'draft_post_count': posts.filter(active=False).count()
+            'draft_post_count': posts.filter(active=False).count(),
+            'py_version': platform.python_version(),
+            'django_version': django.get_version()
         }
 
         context = { 'settings': self.settings, 'details': details, 'form': form }

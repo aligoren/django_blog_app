@@ -9,7 +9,7 @@
                 <div class="column is-6"><a href="">{{ details.page_count }} Page{{ details.page_count|pluralize }}</a></div>
                 <div class="column is-6"><a href="">{{ details.comment_count }} Comment{{ details.comment_count|pluralize }}</a></div>
                 <div class="column is-12">
-                    <p>Running on Python 3.6 and Django 3.1</p>
+                    <p>Running on Python {{ details.py_version }} and Django {{ details.django_version }}</p>
                 </div>
             </div>
         </div>
