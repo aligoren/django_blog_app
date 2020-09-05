@@ -14,9 +14,6 @@
             </div>
             
             <div class="column is-3">
-                {% if request.GET.status %}
-                <input name="status" class="input is-pulled-right" type="hidden" value="{{ request.GET.status }}">
-                {% endif %}
                 <input name="search" class="input is-pulled-right" type="text" value="{{ request.GET.search }}">
             </div>
             <div class="column is-1">

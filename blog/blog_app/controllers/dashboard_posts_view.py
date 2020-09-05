@@ -30,7 +30,7 @@ class DashboardPostsView(LoginRequiredMixin, TemplateView):
 
         if search:
             post_list = Post.objects.filter(
-                Q(active=active) & (Q(title__contains=search) | Q(content__contains=search))
+                Q(title__contains=search) | Q(content__contains=search)
             ).order_by('-id')
         else:
             post_list = Post.objects.filter(active=active).order_by('-id') if active is not None else Post.objects.all()
