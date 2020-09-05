@@ -1,6 +1,29 @@
+{% load urlparams %}
+
 <div class="column is-12">
     <span class="subtitle mr-2">Posts</span>
     <a class="button is-small" href="/dashboard/new_post">Add New</a>
+    <form class="mt-3" action="{% url 'posts' %}{% urlparams status=request.GET.status %}" method="GET">
+        <div class="columns">
+            <div class="column is-8 mt-3">
+                <a class="{% if request.GET.status == 'all'%}has-text-black{% endif %}" href="{% url 'posts' %}{% urlparams status='all' %}">All</a> | 
+                <a class="{% if request.GET.status is None or request.GET.status == 'published'%}has-text-black{% endif %}" href="{% url 'posts' %}{% urlparams status='published' %}">Published</a> | 
+                <a class="{% if request.GET.status == 'draft'%}has-text-black{% endif %}" href="{% url 'posts' %}{% urlparams status='draft' %}">Draft</a>
+        
+                
+            </div>
+            
+            <div class="column is-3">
+                {% if request.GET.status %}
+                <input name="status" class="input is-pulled-right" type="hidden" value="{{ request.GET.status }}">
+                {% endif %}
+                <input name="search" class="input is-pulled-right" type="text" value="{{ request.GET.search }}">
+            </div>
+            <div class="column is-1">
+                <button class="button is-fullwidth" type="submit">Search Posts</button>
+            </div>
+        </div>
+    </form>
 </div>
 <div class="column is-12">
     <table class="table is-bordered is-striped is-hoverable is-fullwidth">
@@ -18,7 +41,7 @@
                 {% for post in posts %}
                 <tr>
                     <td><label class="checkbox"><input type="checkbox" /></label></td>
-                    <td>{{ post.title }}</td>
+                    <td><a href="">{{ post.title }}</a></td>
                     <td>
                         {% for category in post.category.all %}
                         <span class="tag is-primary is-light">
@@ -39,7 +62,7 @@
     <nav class="pagination is-pulled-right" role="navigation" aria-label="pagination">
         <ul class="pagination-list">
             {% if posts.has_previous %}
-            <li><a class="pagination-previous" href="?page={{ posts.previous_page_number }}">&laquo;</a></li>
+            <li><a class="pagination-previous" href="{% urlparams page=posts.previous_page_number status=request.GET.status search=request.GET.search %}">&laquo;</a></li>
             {% else %}
             <li><span class="is-unclickable pagination-previous">&laquo;</span></li>
             {% endif %}
@@ -47,11 +70,11 @@
                 {% if posts.number == i %}
                 <li><span class="pagination-link is-current">{{ i }} <span class="sr-only">(current)</span></span></li>
                 {% else %}
-                <li><a class="pagination-link" href="?page={{ i }}">{{ i }}</a></li>
+                <li><a class="pagination-link" href="{% urlparams page=i status=request.GET.status search=request.GET.search %}">{{ i }}</a></li>
                 {% endif %}
             {% endfor %}
-            {% if posts.has_next %}
-            <li><a class="pagination-next" href="?page={{ posts.next_page_number }}">&raquo;</a></li>
+            {% if posts.has_next %} 
+            <li><a class="pagination-next" href="{% urlparams page=posts.next_page_number status=request.GET.status search=request.GET.search %}">&raquo;</a></li>
             {% else %}
             <li><span class="is-unclickable pagination-next">&raquo;</span></li>
             {% endif %}
