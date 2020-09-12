@@ -3,6 +3,7 @@ from django.urls import path
 from . import views
 from .controllers.dashboard_view import DashboardView
 from .controllers.dashboard_posts_view import DashboardPostsView
+from .controllers.edit_post_view import EditPostView
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -18,6 +19,7 @@ urlpatterns = [
     # dashboard routes
     path('dashboard', DashboardView.as_view(), name='dashboard'),
     path('dashboard/posts', DashboardPostsView.as_view(), name='posts'),
+    path('dashboard/edit_post/<int:pk>', EditPostView.as_view(), name='edit_post'),
 
 
     # post details like a wildcard

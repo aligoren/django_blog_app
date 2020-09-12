@@ -38,7 +38,7 @@
                 {% for post in posts %}
                 <tr>
                     <td><label class="checkbox"><input type="checkbox" /></label></td>
-                    <td><a href="">{{ post.title }}</a></td>
+                    <td><a href="{% url 'edit_post' pk=post.id %}">{{ post.title }}</a></td>
                     <td>
                         {% for category in post.category.all %}
                         <span class="tag is-primary is-light">
